@@ -185,9 +185,9 @@ end)
 local WindUI = loadstring(game:HttpGet('https://github.com/Footagesus/WindUI/releases/latest/download/main.lua'))()
 
 local window = WindUI:CreateWindow({
-    Title = "PinatHub | Lucky Block Collector",
+    Title = "PinatHub",
     Author = "@viunze on tiktok",
-    Folder = "pinathub_lucky",
+    Folder = "pinathub",
     Size = UDim2.fromOffset(500, 500),
     Transparent = false,
     Theme = "Dark",
