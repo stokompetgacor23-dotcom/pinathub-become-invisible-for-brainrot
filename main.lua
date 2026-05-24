@@ -1,7 +1,7 @@
 repeat task.wait() until game:IsLoaded()
 
 -- =======================================================
--- PINATHUB | LUCKY BLOCK COLLECTOR
+-- PINATHUB | LUCKY BLOCK COLLECTOR (WINDUI v2)
 -- =======================================================
 
 -- ============================================
@@ -126,8 +126,8 @@ logoGui.Parent = player:WaitForChild("PlayerGui", 5)
 
 local logoButton = Instance.new("ImageButton")
 logoButton.Name = "LogoButton"
-logoButton.Size = UDim2.new(0, 60, 0, 60)
-logoButton.Position = UDim2.new(0.5, -30, 0.5, -30)
+logoButton.Size = UDim2.new(0, 50, 0, 50)
+logoButton.Position = UDim2.new(0.5, -25, 0.5, -25)
 logoButton.BackgroundTransparency = 1
 logoButton.Image = "rbxassetid://118264723961739"
 logoButton.ImageColor3 = Color3.fromRGB(180, 0, 255)
@@ -138,8 +138,8 @@ local uiCornerLogo = Instance.new("UICorner")
 uiCornerLogo.CornerRadius = UDim.new(1, 0)
 uiCornerLogo.Parent = logoButton
 
-local hoverTween = TweenService:Create(logoButton, TweenInfo.new(0.2), {Size = UDim2.new(0, 70, 0, 70)})
-local unhoverTween = TweenService:Create(logoButton, TweenInfo.new(0.2), {Size = UDim2.new(0, 60, 0, 60)})
+local hoverTween = TweenService:Create(logoButton, TweenInfo.new(0.2), {Size = UDim2.new(0, 60, 0, 60)})
+local unhoverTween = TweenService:Create(logoButton, TweenInfo.new(0.2), {Size = UDim2.new(0, 50, 0, 50)})
 
 logoButton.MouseEnter:Connect(function() 
     hoverTween:Play() 
@@ -180,7 +180,7 @@ UIS.InputChanged:Connect(function(input)
 end)
 
 -- ============================================
--- LOAD WINDUI
+-- LOAD WINDUI v2
 -- ============================================
 local WindUI = loadstring(game:HttpGet('https://github.com/Footagesus/WindUI/releases/latest/download/main.lua'))()
 
@@ -188,11 +188,12 @@ local window = WindUI:CreateWindow({
     Title = "PinatHub",
     Author = "@viunze on tiktok",
     Folder = "pinathub",
-    Size = UDim2.fromOffset(500, 500),
-    Transparent = false,
+    Size = UDim2.fromOffset(500, 350),
+    Transparent = true,
     Theme = "Dark",
     IsOpenButtonEnabled = false,
-    User = {Enabled = true, Anonymous = true},
+    UserEnabled = true,
+    HasOutline = true,
     SideBarWidth = 150,
 })
 
@@ -227,7 +228,7 @@ local mainSection = tabs.main:Section({Title = "Zone Settings"})
 mainSection:Dropdown({
     Title = "🌍 Select Zone",
     Values = zoneList,
-    Default = "1",
+    Value = "1",
     Callback = function(value)
         SelectedZone = value
     end,
@@ -236,7 +237,7 @@ mainSection:Dropdown({
 mainSection:Dropdown({
     Title = "📦 Items per Warp",
     Values = amountList,
-    Default = "1",
+    Value = "1",
     Callback = function(value)
         CollectAmount = value
     end,
@@ -244,7 +245,6 @@ mainSection:Dropdown({
 
 mainSection:Toggle({
     Title = "🚀 Auto Farm Zone",
-    Type = "Checkbox",
     Value = false,
     Callback = function(state)
         AutoFarm = state
@@ -258,7 +258,6 @@ local collectSection = tabs.collect:Section({Title = "Auto Collection"})
 
 collectSection:Toggle({
     Title = "💸 Auto Collect Money",
-    Type = "Checkbox",
     Value = false,
     Callback = function(state)
         AutoCollectMoney = state
@@ -267,7 +266,6 @@ collectSection:Toggle({
 
 collectSection:Toggle({
     Title = "🔄 Auto Rebirth",
-    Type = "Checkbox",
     Value = false,
     Callback = function(state)
         AutoRebirth = state
@@ -282,7 +280,7 @@ local shopSection = tabs.shop:Section({Title = "Item Shop"})
 shopSection:Dropdown({
     Title = "🛒 Select Item",
     Values = shopOptionsList,
-    Default = "👻 Invisible Time (1)",
+    Value = "👻 Invisible Time (1)",
     Callback = function(value)
         SelectedShopItem = value
     end,
@@ -344,7 +342,8 @@ local movementSection = tabs.settings:Section({Title = "Movement"})
 
 movementSection:Slider({
     Title = "Walk Speed",
-    Value = {Min = 16, Max = 250, Default = 16, Decimals = 0},
+    Value = {Min = 16, Max = 250, Default = 16},
+    Rounding = 0,
     Callback = function(value)
         WalkSpeedValue = value
         local char = player.Character
@@ -359,7 +358,8 @@ movementSection:Slider({
 
 movementSection:Slider({
     Title = "Jump Power",
-    Value = {Min = 0, Max = 500, Default = 50, Decimals = 0},
+    Value = {Min = 0, Max = 500, Default = 50},
+    Rounding = 0,
     Callback = function(value)
         JumpPowerValue = value
         local char = player.Character
@@ -375,7 +375,6 @@ movementSection:Slider({
 
 movementSection:Toggle({
     Title = "Infinite Jump",
-    Type = "Checkbox",
     Value = false,
     Callback = function(value)
         InfiniteJumpEnabled = value
@@ -418,7 +417,6 @@ local utilitySection = tabs.settings:Section({Title = "Utilities"})
 local noclipActive = false
 utilitySection:Toggle({
     Title = "Noclip",
-    Type = "Checkbox",
     Value = false,
     Callback = function(state)
         noclipActive = state
@@ -443,7 +441,6 @@ utilitySection:Toggle({
 local antiAFKActive = false
 utilitySection:Toggle({
     Title = "Anti-AFK",
-    Type = "Checkbox",
     Value = false,
     Callback = function(state)
         antiAFKActive = state
